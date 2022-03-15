@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Spike
+  - Block
+  - BlockPlayerGenerator
+  - Block_With_Spike
+  - Platform
+  - Alien
+  - Spawn1
+  - Spawn2
+  - Spawn3
+  - Spawn4
+  - Crystal
+  - GroundKiller
+  - Spawn5
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2020187937
+    locked: 0
+  - name: Midground
+    uniqueID: 13872309
+    locked: 0
+  - name: Foreground
+    uniqueID: 1475319257
+    locked: 0
