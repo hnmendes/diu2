@@ -34,7 +34,6 @@ public class CrystalScript : MonoBehaviour
         {
             playerCollided = true;
             Anim.SetBool("PlayerCollided", playerCollided);
-            CrystalSpawn.Generate3NewCrystals();
         }
     }
 }
