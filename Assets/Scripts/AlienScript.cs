@@ -1,22 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AlienScript : MonoBehaviour
 {
     private bool playerCollided;
     public Animator Anim;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         Anim = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnStartExploding()
@@ -26,15 +17,51 @@ public class AlienScript : MonoBehaviour
 
     private void OnEndExploding()
     {
-        Destroy(gameObject);
+        DestroyAlien();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        playerCollided = collision.gameObject.CompareTag("Player");
+        
+        if (playerCollided)
         {
-            playerCollided = true;
-            Anim.SetBool("PlayerCollided", playerCollided);
+            CheckIfKillsOrDead(collision);
         }
     }
+
+    #region Private Methods
+
+    private void ActivateExplosionAnimation()
+    {
+        Anim.SetBool("PlayerCollided", playerCollided);
+    }
+
+    private void DisableCollider()
+    {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    private void DestroyAlien()
+    {
+        Destroy(gameObject);
+    }
+
+    private void CheckIfKillsOrDead(Collision2D collision)
+    {
+        var direction = transform.position - collision.gameObject.transform.position;
+
+        // It means that the collision happened on up or down.
+        if(Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+        {
+            // Up
+            if(Mathf.Abs(direction.y) > 0)
+            {
+                DisableCollider();
+                ActivateExplosionAnimation();
+            }                            
+        }
+    }
+
+    #endregion
 }

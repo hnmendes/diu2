@@ -1,39 +1,71 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CrystalScript : MonoBehaviour
 {
     private Animator Anim;
-    private bool playerCollided = false;    
+    private bool playerCollided = false;
 
     void Start()
     {
         Anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnStartExploding()
     {
         
     }
 
-    private void OnStartExploding()
-    {
-
-    }
-
     private void OnEndExploding()
     {
-        Destroy(gameObject);
+        DestroyCrystal();
+        DecreaseCrystalValueAfterExplosion();
+        CheckIfNeedsCreateMoreCrystals();        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        playerCollided = collision.gameObject.CompareTag("Player");
+
+        if (playerCollided)
         {
+            DisableCollider();
             playerCollided = true;
-            Anim.SetBool("PlayerCollided", playerCollided);
+            ActivateExplosionAnimation();
         }
     }
+
+    #region Private Methods
+
+    private int GetCrystalNumber()
+    {
+        return CrystalGenerator.Instance.GetCrystalNumber();
+    }
+
+    private void DisableCollider()
+    {
+        gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+    }
+
+    private void ActivateExplosionAnimation()
+    {
+        Anim.SetBool("PlayerCollided", playerCollided);
+    }
+
+    private void DecreaseCrystalValueAfterExplosion()
+    {
+        CrystalGenerator.Instance.SetCrystalNumber(GetCrystalNumber() - 1);
+    }
+
+    private void DestroyCrystal()
+    {
+        Destroy(gameObject);
+    }
+
+    private void CheckIfNeedsCreateMoreCrystals()
+    {
+        if (GetCrystalNumber() < 1)
+            CrystalGenerator.Instance.Generate3NewCrystals();
+    }
+
+    #endregion
 }

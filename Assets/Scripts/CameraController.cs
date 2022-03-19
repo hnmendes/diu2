@@ -7,13 +7,6 @@ public class CameraController : MonoBehaviour
     public float OffsetSmoothing;
     private Vector3 PlayerPosition;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         // Match x,y,z position of the player
